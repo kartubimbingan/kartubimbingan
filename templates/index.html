@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    fontFamily: {
+                        sans: ["Roboto", "sans-serif"],
+                        body: ["Roboto", "sans-serif"],
+                        mono: ["ui-monospace", "monospace"],
+                    },
+                },
+                corePlugins: {
+                    preflight: false,
+                },
+            };
+        </script>
+    </head>
+    <body class="dark:bg-zinc-800">
+        <div class="mt-[5.5rem]"></div>
+        <div class="fixed bottom-0 lg:right-6 sm:right-0 mx-4 z-[2000]">
+            <div id="alert" class="hidden w-auto items-center rounded-lg bg-success-100 px-6 py-5 mb-4 text-base text-success-700 data-[te-alert-show]:inline-flex" role="alert">
+                <span class="mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                        <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <p id="pesan"></p>
+                <button type="button" id="hide-alert" class="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none" aria-label="Close">
+                    <span class="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                            <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <!-- Main navigation container -->
+        <nav class="fixed top-0 z-[1000] flex w-full flex-nowrap items-center justify-between bg-[#FBFBFB] py-4 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:flex-wrap lg:justify-start" data-te-navbar-ref>
+            <div class="flex w-full flex-wrap items-center justify-between px-3">
+                <div class="flex-grow ml-2">
+                    <a class="text-xl text-neutral-800 dark:text-neutral-200" href="#">KARTU BIMBINGAN</a>
+                </div>
+                <div class="relative pt-2">
+                    <label class="inline-block pl-[0.15rem] hover:cursor-pointer hover:text-neutral-700 focus:text-neutral-700" for="switchTheme">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" class="inline-block mb-2 h-5 w-5">
+                            <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                        </svg>
+                    </label>
+                    <input class="mx-2 h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]" type="checkbox" role="switch" id="switchTheme" value="" />
+                    <label class="inline-block pl-[0.15rem] hover:cursor-pointer hover:text-neutral-700 focus:text-neutral-700" for="switchTheme">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" class="inline-block mb-2 h-5 w-5">
+                            <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
+                        </svg>
+                    </label>
+                </div>
+                <button class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden" type="button" data-te-collapse-init data-te-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="[&>svg]:w-7">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7">
+                            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </button>
+                <div class="!visible mt-2 lg:ms-4 hidden basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto" id="navbarSupportedContent3" data-te-collapse-item>
+                    <div class="list-style-none mr-auto flex flex-col pl-0 lg:mt-1 lg:flex-row" data-te-navbar-nav-ref>
+                        <div class="mb-4 pl-2 lg:mb-0 lg:pl-0 lg:pr-1" data-te-nav-item-ref>
+                            <a class="active disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" aria-current="page" href="#" data-te-nav-link-ref>Pengajuan</a>
+                        </div>
+                        <div class="mb-4 pl-2 lg:mb-0 lg:pl-0 lg:pr-1" data-te-nav-item-ref>
+                            <a class="p-0 text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="/cek-status/" data-te-nav-link-ref>Cek Status</a>
+                        </div>
+                        <div class="mb-4 pl-2 lg:mb-0 lg:pl-0 lg:pr-1" data-te-nav-item-ref>
+                            <a class="p-0 text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400" href="/logout/" data-te-nav-link-ref>Logout</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+        <main class="lg:container lg:mx-auto mx-4">
+            <div class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                <div class="border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50 text-xl font-medium">PENGAJUAN KARTU BIMBINGAN</div>
+                <div class="p-6 mb-4">
+                    <form method="post" name="form-pengajuan-kartu-bimbingan" id="form-pengajuan-kartu-bimbingan">
+                        <div class="grid grid-cols-12 gap-4">
+                            <input type="hidden" name="id-pembimbing-1" id="id-pembimbing-1">
+                            <input type="hidden" name="id-pembimbing-2" id="id-pembimbing-2">
+                            <div class="col-span-12 md:col-span-12" data-te-validate="input" data-te-validation-ruleset="isRequired" data-te-active-validation="true">
+                                <select id="jenis-kartu" name="jenis-kartu" data-te-select-init data-te-select-placeholder="Jenis Kartu" data-te-select-size="lg" data-te-select-clear-button="true" autocomplete="false">
+                                    <option value="Putih">Kartu Putih</option>
+                                    <option value="Kuning">Kartu Kuning</option>
+                                </select>
+                                <label data-te-select-label-ref>Jenis Kartu</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-4" id="nim-auto-select" data-te-validate="input" data-te-validation-ruleset="isRequired|isNumber|isLongerThan(9)|isShorterThan(11)|selectednim" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <input type="number" name="nim" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" data-te-input-size="lg" id="nim" placeholder="NIM" autocomplete="false" />
+                                <label for="nim" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">NIM </label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-4" data-te-validate="input" data-te-validation-ruleset="isRequired" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <input type="text" name="nama" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" data-te-input-size="lg" id="nama" placeholder="Nama" autocomplete="false" />
+                                <label for="nama" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Nama </label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-4" data-te-validate="input" data-te-validation-ruleset="isRequired">
+                                <select id="prodi" name="prodi" data-te-select-init data-te-select-placeholder="Program Studi" data-te-select-size="lg" data-te-select-clear-button="false" autocomplete="false" disabled="true">
+                                    <option value="Akuntansi">Akuntansi</option>
+                                    <option value="Manajemen">Manajemen</option>
+                                </select>
+                                <label data-te-select-label-ref>Program Studi</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-6" id="pembimbing-1-auto-select" data-te-validate="input" data-te-validation-ruleset="isRequired|selectedp1" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <input type="text" name="pembimbing-1" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" id="pembimbing-1" data-te-select-size="lg" placeholder="Pembimbing 1" />
+                                <label for="pembimbing-1" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Pembimbing 1</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-6" id="pembimbing-2-auto-select" data-te-validate="input" data-te-validation-ruleset="isRequired|selectedp2" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <input type="text" name="pembimbing-2" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" id="pembimbing-2" data-te-select-size="lg" placeholder="Pembimbing 2" />
+                                <label for="pembimbing-2" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Pembimbing 2</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-12" data-te-validate="input" data-te-validation-ruleset="isRequired" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <textarea name="judul-proposal" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" id="judul-proposal" rows="3" data-te-input-size="lg" placeholder="Judul Proposal"></textarea>
+                                <label for="judul-proposal" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Judul Proposal</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-6" data-te-validate="input" data-te-validation-ruleset="isRequired|isNumber" data-te-active-validation="true" data-te-input-wrapper-init>
+                                <input type="number" name="nomor-surat" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" data-te-input-size="lg" id="nomor-surat" placeholder="Nomor Surat" />
+                                <label for="nomor-surat" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Nomor Surat</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-6" data-te-validate="input" data-te-validation-ruleset="isRequired|isDate" data-te-active-validation="true" id="tanggal-surat-datepicker" data-te-input-wrapper-init>
+                                <input type="text" name="tanggal-surat" class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" id="tanggal-surat" data-te-datepicker-toggle-ref data-te-datepicker-toggle-button-ref placeholder="Tanggal Surat" />
+                                <label for="tanggal-surat" class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Tanggal Surat</label>
+                            </div>
+                            <div class="relative col-span-12 md:col-span-12">
+                                <div class="h-full flex flex-row-reverse gap-4 justify-start items-end">
+                                    <button id="button-submit" data-te-submit-btn-ref data-te-ripple-init data-te-ripple-color="light" type="button" class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 h-4 w-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+                                        </svg> Ajukan </button>
+                                    <button data-te-ripple-init data-te-ripple-color="light" type="reset" class="flex items-center rounded bg-danger px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 h-4 w-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg> Hapus </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+        <script>
+            const form = document.querySelector('#form-pengajuan-kartu-bimbingan')
+            const validationOptions = {
+                customErrorMessages: {
+                    selectedp1: "Harap dipilih, bukan diketik!",
+                    selectedp2: "Harap dipilih, bukan diketik!",
+                    selectednim: "Harap dipilih, bukan diketik!",
+                    isRequired: "Tolong diisi!",
+                    isNumber: "Tolong isi dengan angka!",
+                    isDate: "Tolong isi dengan format tanggal yang benar!",
+                    isShorterThan: "Panjang karakter harus kurang dari {v}!",
+                    isLongerThan: "Panjang karakter harus lebih dari {v}!",
+                },
+                customRules: {
+                    selectedp1: (value, message, string) => {
+                        const p1 = document.querySelector('#id-pembimbing-1')
+                        return p1.value.length !== 0 && p1.value !== null ? true : message
+                    },
+                    selectedp2: (value, message, string) => {
+                        const p2 = document.querySelector('#id-pembimbing-2')
+                        return p2.value.length !== 0 && p2.value !== null ? true : message
+                    },
+                    selectednim: (value, message, string) => {
+                        const n = document.querySelector('#nama')
+                        const p = document.querySelector('#prodi')
+                        return n.value.length !== 0 && n.value !== null && p.value !== null ? true : message
+                    },
+                    isShorterThan: (value, message, string) => {
+                        return value.length < parseInt(string) ? true : message.replace('{v}', string)
+                    },
+                    isLongerThan: (value, message, string) => {
+                        return value.length > parseInt(string) ? true : message.replace('{v}', string)
+                    }
+                },
+                validFeedback: "Format Sudah benar!",
+                activeValidation: true
+            }
+            let validation = new te.Validation(form, validationOptions)
+            // ---------------------------------------------------------------------------------------- //
+            const alert = new te.Alert(document.querySelector('#alert'), {
+                autohide: true,
+                delay: 5000,
+                animation: true,
+                autoclose: false
+            })
+            const hideAlert = document.querySelector('#hide-alert')
+            hideAlert.addEventListener('click', (event) => {
+                alert.hide()
+            })
+            // ---------------------------------------------------------------------------------------- //
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            };
+
+            function setDarkTheme() {
+                document.documentElement.classList.add("dark");
+                localStorage.theme = "dark";
+            };
+
+            function setLightTheme() {
+                document.documentElement.classList.remove("dark");
+                localStorage.theme = "light";
+            };
+
+            function onThemeSwitcherChange(event) {
+                if (themeSwitcher.checked) {
+                    setDarkTheme()
+                } else {
+                    setLightTheme()
+                }
+            };
+            const themeSwitcher = document.getElementById("switchTheme");
+            if (localStorage.getItem("theme") === null) {
+                localStorage.theme = 'light'
+                setLightTheme()
+            }
+            if (localStorage.theme == 'dark') {
+                themeSwitcher.checked = true
+            } else {
+                themeSwitcher.checked = false
+            }
+            themeSwitcher.addEventListener("click", onThemeSwitcherChange)
+            // ---------------------------------------------------------------------------------------- //
+            const nimWrapper = document.querySelector('#nim-auto-select')
+            const asyncNimFilter = async (query) => {
+                const url = `/api/get/mahasiswa?nim=${encodeURI(query)}`
+                const response = await fetch(url)
+                const data = await response.json()
+                return data;
+            }
+            const nimAutoSelect = new te.Autocomplete(nimWrapper, {
+                filter: asyncNimFilter,
+                autoSelect: true,
+                debounce: 500,
+                threshold: 3,
+                noResults: 'Data tidak ditemukan...',
+                displayValue: (value) => value['nim'],
+                itemContent: (result) => {
+                    return `
+                        
+							<div class="flex flex-col w-full">
+								<div class="flex flex-row justify-between">
+									<div class="font-medium">${result['nim']}</div>
+									<div class="text-[0.9rem]">${result['prodi']}</div>
+								</div>
+								<div class="flex flex-row justify-between">
+									<div class="text-[0.9rem]">${result['nama']}</div>
+								</div>
+							</div>
+                    `;
+                },
+            });
+            nimWrapper.addEventListener("change", (event) => {
+                let nama = document.querySelector('#nama')
+                let prodi = document.querySelector('#prodi')
+                const prodiInstance = te.Select.getInstance(prodi);
+                nama.value = ""
+                prodiInstance.setValue("-1")
+            })
+            nimWrapper.addEventListener("itemSelect.te.autocomplete", (event) => {
+                let nama = document.querySelector('#nama')
+                let prodi = document.querySelector('#prodi')
+                const prodiInstance = te.Select.getInstance(prodi);
+                nama.focus()
+                nama.value = event.value.nama
+                prodiInstance.setValue(event.value.prodi)
+            })
+            nimWrapper.addEventListener("close.te.autocomplete", (event) => {
+                nama.focus()
+                event.target.firstElementChild.focus()
+            })
+            // ---------------------------------------------------------------------------------------- //
+            const pembimbing1Wrapper = document.querySelector('#pembimbing-1-auto-select')
+            const asyncPembimbing1Filter = async (query) => {
+                const prodi = document.querySelector('#prodi')
+                let url = `/api/get/dosen?nama=${encodeURI(query)}&prodi=${encodeURI(prodi.value)}`
+                const response = await fetch(url)
+                const data = await response.json()
+                return data;
+            }
+            const pembimbing1AutoSelect = new te.Autocomplete(pembimbing1Wrapper, {
+                filter: asyncPembimbing1Filter,
+                autoSelect: true,
+                debounce: 500,
+                threshold: 3,
+                noResults: 'Data tidak ditemukan...',
+                displayValue: (value) => value['nama'],
+                itemContent: (result) => {
+                    return `
+                        
+							<div class="flex flex-col w-full">
+								<div class="flex flex-row justify-between">
+									<div class="font-medium">${result['nama']}</div>
+									<div class="text-[0.9rem]">${result['id_dosen']}</div>
+								</div>
+								<div class="flex flex-row justify-between">
+									<div class="text-[0.9rem]">${result['prodi']}</div>
+								</div>
+							</div>
+                    `;
+                },
+            });
+            pembimbing1Wrapper.addEventListener("change", (event) => {
+                let idPembimbing1 = document.querySelector('#id-pembimbing-1')
+                idPembimbing1.value = ""
+            })
+            pembimbing1Wrapper.addEventListener("itemSelect.te.autocomplete", (event) => {
+                let idPembimbing1 = document.querySelector('#id-pembimbing-1')
+                idPembimbing1.value = parseInt(event.value.id_dosen)
+            })
+            // ---------------------------------------------------------------------------------------- //
+            const pembimbing2Wrapper = document.querySelector('#pembimbing-2-auto-select')
+            const asyncPembimbing2Filter = async (query) => {
+                const prodi = document.querySelector('#prodi')
+                let url = `/api/get/dosen?nama=${encodeURI(query)}&prodi=${encodeURI(prodi.value)}`
+                const response = await fetch(url)
+                const data = await response.json()
+                return data;
+            }
+            const pembimbing2AutoSelect = new te.Autocomplete(pembimbing2Wrapper, {
+                filter: asyncPembimbing2Filter,
+                autoSelect: true,
+                debounce: 500,
+                threshold: 3,
+                noResults: 'Data tidak ditemukan...',
+                displayValue: (value) => value['nama'],
+                itemContent: (result) => {
+                    return `
+                        
+							<div class="flex flex-col w-full">
+								<div class="flex flex-row justify-between">
+									<div class="font-medium">${result['nama']}</div>
+									<div class="text-[0.9rem]">${result['id_dosen']}</div>
+								</div>
+								<div class="flex flex-row justify-between">
+									<div class="text-[0.9rem]">${result['prodi']}</div>
+								</div>
+							</div>
+                    `;
+                },
+            });
+            pembimbing2Wrapper.addEventListener("change", (event) => {
+                let idPembimbing2 = document.querySelector('#id-pembimbing-2')
+                idPembimbing2.value = ""
+            })
+            pembimbing2Wrapper.addEventListener("itemSelect.te.autocomplete", (event) => {
+                let idPembimbing2 = document.querySelector('#id-pembimbing-2')
+                idPembimbing2.value = parseInt(event.value.id_dosen)
+            })
+            // ---------------------------------------------------------------------------------------- //
+            const tanggalSurat = document.querySelector('#tanggal-surat-datepicker')
+            const tanggalSuratDatepicker = new te.Datepicker(tanggalSurat, {
+                confirmDateOnSelect: true,
+                removeOkBtn: true,
+                weekdaysFull: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                weekdaysNarrow: ['M', 'S', 'S', 'R', 'K', 'J', 'S'],
+                weekdaysShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                monthsFull: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                title: "Pilih Tanggal Surat",
+                clearBtnLabel: "Hapus Pilihan",
+                clearBtnText: "Hapus",
+                cancelBtnLabel: "Batal Pilihan",
+                cancelBtnText: "Batal"
+            })
+            // ---------------------------------------------------------------------------------------- //
+            form.addEventListener('valid.te.validation', (event) => {
+                data = JSON.stringify(Object.fromEntries(new FormData(form)))
+                fetch("/api/post/kartu", {
+                    method: "POST",
+                    body: data,
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                }).then((response) => response.json()).then((json) => {
+                    const alert = document.querySelector('#alert')
+                    const pesan = document.querySelector('#pesan')
+                    if (json.status == 200) {
+                        alert.classList.remove('bg-danger-100')
+                        alert.classList.remove('text-danger-700')
+                        alert.classList.add('bg-success-100')
+                        alert.classList.add('text-success-700')
+                        pesan.innerHTML = json.message
+                    } else if (json.status == 400) {
+                        alert.classList.remove('bg-success-100')
+                        alert.classList.remove('text-success-700')
+                        alert.classList.add('bg-danger-100')
+                        alert.classList.add('text-danger-700')
+                        pesan.innerHTML = json.message
+                    } else {
+                        alert.classList.remove('bg-success-100')
+                        alert.classList.remove('text-success-700')
+                        alert.classList.add('bg-danger-100')
+                        alert.classList.add('text-danger-700')
+                        pesan.innerHTML = json.message
+                    }
+                    te.Alert.getInstance(alert).show()
+                });
+            })
+        </script>
+    </body>
+</html>
